@@ -71,6 +71,9 @@ const checked = ref(false)
 const gender = ref("")
 const selectedFood = ref("")
 
+// conditional redering: v-if, v-else-if, v-else, v-show
+const isLoggedIn = ref(false)
+const score = ref(85)
 
 </script>
 
@@ -159,6 +162,40 @@ const selectedFood = ref("")
       <option value="Salad">Salad</option>
     </select>
     <p>Món ăn bạn chọn: {{ selectedFood }}</p>
+  </div>
+  <div>
+    <!-- Conditional Rendering: v-if, v-else-if, v-else, v-show -->
+     <!-- Sự khác biệt giữa v-if và v-show: -->
+    <!-- 1. v-if: Khi điều kiện sai, Vue sẽ không render phần tử đó vào DOM. -->
+    <!-- 2. v-show: Phần tử luôn được render vào DOM, nhưng sẽ bị ẩn đi bằng CSS (display: none). -->
+    <!-- 3. Hiệu suất: v-if có chi phí cao hơn v-show khi thay đổi điều kiện nhiều lần. -->
+    <!-- 4. Sử dụng: v-if thích hợp cho các điều kiện thay đổi ít, v-show thích hợp cho các điều kiện thay đổi thường xuyên. -->
+    <hr>
+    <h3>Conditional Rendering</h3>
+    <h4>V-if, v-else-if, v-else</h4>
+    <button @click="isLoggedIn = !isLoggedIn">
+      {{ isLoggedIn ? 'Logout' : 'Login' }}
+    </button>
+    <div v-if="isLoggedIn">
+      <h4>Welcome website, user!</h4>
+    </div>
+    <div v-else>
+      <h4>Please log in to continue.</h4>
+    </div>
+
+    <h4>V-if, v-else-if, v-else</h4>
+    <div>
+      <label for="score">Điểm của bạn: </label>
+      <input id="score" v-model.number="score" placeholder="Nhập điểm của bạn..." />
+    </div>
+
+    <span>Điểm của bạn: {{ score }}đ</span> <br>
+    <span>Bạn học lực: </span>
+    <span v-if="score >= 90">Xuất sắc</span>
+    <span v-else-if="score >= 75">Giỏi</span>
+    <span v-else-if="score >= 60">Khá</span>
+    <span v-else-if="score >= 50">Trung bình</span>
+    <span v-else>Yếu</span>
 
   </div>
 </template>
