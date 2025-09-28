@@ -27,6 +27,44 @@ let cars = ref(["BMW", "Mercedes", "Audi", "Lexus"])
 const { fullName, age, address, birthday, isGender } = toRefs(girl)
 
 // Events: 25/09/2025 - học tiếp
+const name = ref("")
+
+const increaseAge = () => {
+  age.value++
+}
+
+const greeting = (event) => {
+  console.log(111, event);
+}
+
+function handleInput(e) {
+  console.log("Input:", e.target.value)
+}
+function handleChange(e) {
+  console.log("Change:", e.target.value)
+}
+function handleSubmit() {
+  alert(`Form submitted với tên: ${name.value}`)
+}
+
+function mouseOver() {
+  console.log("Chuột đang ở trong div")
+}
+function mouseOut() {
+  console.log("Chuột đã rời khỏi div")
+}
+
+function onScroll(e) {
+  console.log("Scroll Top:", e.target.scrollTop)
+}
+
+function warn(message, event) {
+  // now we have access to the native event
+  if (event) {
+    event.preventDefault()
+  }
+  alert(message)
+}
 </script>
 
 <template>
@@ -62,5 +100,34 @@ const { fullName, age, address, birthday, isGender } = toRefs(girl)
     <p>Address: {{ address }}</p>
     <p>Birthday: {{ birthday }}</p>
     <p>Gender: {{ isGender ? 'Nam' : 'Nữ' }}</p>
+  </div>
+  <hr>
+  <div>
+    <!-- Cú pháp chuẩn: @eventName="handler" -->
+    <!-- Các event hay dùng: @click @input, @change, @submit.prevent @keydown, @keyup.enter @mouseover, @mouseout @scroll -->
+    <h3>Events:</h3>
+    <h4>+ Mouse Events:</h4>
+    <p>@click: <button @click="increaseAge">Increase</button></p>
+    <p>@click: <button @click="greeting('Greeting')">Greeting</button></p>
+
+    <p>@input, @change, @submit.prevent</p>
+    <form action="" @submit.prevent="handleSubmit">
+      <input type="text" v-model="name" placeholder="Enter your name" @input="handleInput" @change="handleChange" />
+      <button type="submit">Submit</button>
+    </form>
+
+    <div @mouseover="mouseOver" @mouseout="mouseOut">
+      <b>Rê chuột vào/ra rồi nhấn</b>
+    </div>
+
+    <div @scroll="onScroll">
+      <p v-for="n in 20" :key="n">Dòng số {{ n }}</p>
+    </div>
+
+    <div>
+      <button @click="(event) => warn('Form cannot be submitted yet.', event)">
+        Submit
+      </button>
+    </div>
   </div>
 </template>
