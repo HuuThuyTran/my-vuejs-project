@@ -65,6 +65,13 @@ function warn(message, event) {
   }
   alert(message)
 }
+
+// v-model
+const checked = ref(false)
+const gender = ref("")
+const selectedFood = ref("")
+
+
 </script>
 
 <template>
@@ -129,5 +136,29 @@ function warn(message, event) {
         Submit
       </button>
     </div>
+  </div>
+  <div>
+    <!-- v-model -->
+    <!-- Cách sử dụng: nằm trong thẻ input(text, checkbox, radio, select) -->
+    <hr>
+    <h3>V-MODEL</h3>
+    <input type="text" v-model.lazy="name" placeholder="Enter your name" />
+    <p>Tên của bạn là: {{ name }}</p>
+    <hr>
+    <input type="checkbox" v-model="checked" />
+    <p>Trạng thái: {{ checked }}</p>
+    <hr>
+    <input type="radio" value="Nam" v-model="gender"> Nam
+    <input type="radio" value="Nữ" v-model="gender"> Nữ
+    <p>Gioi tinh: {{ gender }}</p>
+    <hr>
+    <select v-model="selectedFood">
+      <option disabled value="">Chọn món ăn</option>
+      <option value="Pizza">Pizza</option>
+      <option value="Burger">Burger</option>
+      <option value="Salad">Salad</option>
+    </select>
+    <p>Món ăn bạn chọn: {{ selectedFood }}</p>
+
   </div>
 </template>
